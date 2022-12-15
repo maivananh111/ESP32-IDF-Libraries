@@ -5,8 +5,8 @@
  *      Author: A315-56
  */
 
-#ifndef COMPONENTS_WIFI_INCLUDE_WIFI_H_
-#define COMPONENTS_WIFI_INCLUDE_WIFI_H_
+#ifndef INCLUDE_WIFI_H_
+#define INCLUDE_WIFI_H_
 
 
 #include "esp_netif.h"
@@ -24,18 +24,18 @@ typedef enum wifi_state{
 }wifi_state_t;
 
 
-esp_err_t WiFi_STA_Connect(char *SSID, char *PASSWORD);
-esp_err_t WiFi_STA_Disconnect(void);
+esp_netif_t *WiFi_STA_Connect(char *SSID, char *PASS, wifi_auth_mode_t auth);
+void WiFi_STA_Disconnect(void);
 
 wifi_state_t WiFi_GetState(void);
-
 esp_netif_t *WiFi_STA_get_netif(void);
-esp_netif_t *WiFi_STA_get_netif_from_desc(const char *desc);
 
-esp_err_t WiFi_STA_Set_IPV4(char *LocalIP, char *GateWay, char *NetMask);
+esp_err_t WiFi_STA_Set_IPV4(char *LocalIP, char *NetMask, char *DefaultGateWay);
+esp_err_t WiFi_STA_Set_IPDHCP(void);
 char *LocalIP(esp_netif_t *WiFi_Netif);
-uint8_t ScanWiFi(void);
-char *Scan_Get_SSID(uint8_t Number);
+
+uint8_t WiFi_STA_Scan(void);
+char *WiFi_STA_Scan_Get_SSID(uint8_t Number);
 
 
 
